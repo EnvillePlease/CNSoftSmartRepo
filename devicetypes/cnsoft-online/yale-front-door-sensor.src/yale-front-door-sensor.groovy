@@ -96,6 +96,7 @@ def zname = device.name
 def zonenumber = settings.zonenumber as int
 def metaData = panelMetaData(token) // Gets Information
 log.debug "Doing zone refresh"
+log.debug metaData.tczones[zonenumber].name
 if (metaData.tczones.contains("system.permission_denied")) {
 	log.debug "Zone ${metaData.tczones} is Fault"
     sendEvent(name: "contact", value:"Failed", displayed: "true", description: "Refresh: Zone is Faulted", linkText: "Zone  ${zname} faulted", isStateChange: "true")
