@@ -87,30 +87,30 @@ def login() {
 
 
  // Gets Panel Metadata. Takes token & location ID as an argument
-//Map panelMetaData() {
+Map panelMetaData() {
 
-// def tczones
+def tczones
 
-// def getPanelMetaDataAndFullStatus = [
-// 	uri: baseUrl() + endpointDevice(),
-// 	headers: ['Authoriztion' : "Bearer ${state.accessToken}"]
-//]
+def getPanelMetaDataAndFullStatus = [
+uri: baseUrl() + endpointDevice(),
+headers: ['Authoriztion' : "Bearer ${state.accessToken}"]
+]
 
-//httpGet(getPanelMetaDataAndFullStatus) {	response ->
+httpGet(getPanelMetaDataAndFullStatus) {	response ->
 
-//    tczones = response.data.message
+   tczones = response.data.message
 
 
-// }
-// return [tczones: tczones]
-// } //Should return Sesor and description Information
+}
+return [tczones: tczones]
+} //Should return Sensor and description Information
 
 
 def refresh() {		   
 	login()
-//def zname = device.name
-//def zonenumber = settings.zonenumber as int
-//def metaData = panelMetaData() // Gets Information
+def zname = device.name
+def zonenumber = settings.zonenumber as int
+def metaData = panelMetaData() // Gets Information
 //log.debug "Doing zone refresh"
 //log.debug metaData.tczones[zonenumber].name
 //if (metaData.tczones.contains("system.permission_denied")) {
