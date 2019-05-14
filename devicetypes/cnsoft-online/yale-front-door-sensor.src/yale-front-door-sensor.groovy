@@ -92,15 +92,13 @@ Map panelMetaData() {
 def tczones
 
 def getPanelMetaDataAndFullStatus = [
-uri: baseUrl() + endpointDevice(),
-headers: ['Authoriztion' : "Bearer ${state.accessToken}"]
+	uri: baseUrl() + endpointDevice(),
+	headers: ['Authorization' : "Bearer ${state.accessToken}"]
 ]
 
-httpGet(getPanelMetaDataAndFullStatus) {	response ->
-
-   tczones = response.data.message
-
-
+httpGet(getPanelMetaDataAndFullStatus) { response ->
+	log.debug "Zones Refresh - response = '$response.data'"
+	tczones = response.data.data
 }
 return [tczones: tczones]
 } //Should return Sensor and description Information
@@ -111,19 +109,19 @@ def refresh() {
 def zname = device.name
 def zonenumber = settings.zonenumber as int
 def metaData = panelMetaData() // Gets Information
-//log.debug "Doing zone refresh"
-//log.debug metaData.tczones[zonenumber].name
-//if (metaData.tczones.contains("system.permission_denied")) {
-//	log.debug "Zone ${metaData.tczones} is Fault"
-//    sendEvent(name: "contact", value:"Failed", displayed: "true", description: "Refresh: Zone is Faulted", linkText: "Zone  ${zname} faulted", isStateChange: "true")
-// } else if (metaData.tczones[zonenumber].status1.contains('device_status.dc_open')) {
-//	log.debug "Zone ${metaData.tczones[zonenumber].status1} is OPEN"
-//    sendEvent(name: "contact", value:"open", displayed: "true", description: "Refresh: Zone is Open", linkText: "Zone ${metaData.tczones[zonenumber].status1} - ${zname}", isStateChange: "true")
-// } else if (metaData.tczones[zonenumber].status1.contains('')) {
-//	log.debug "Zone ${metaData.tczones[zonenumber].status1} is OK"
-//   sendEvent(name: "contact", value:"closed", displayed: "true", description: "Refresh: Zone is closed", linkText: "Zone ${metaData.tczones[zonenumber].status1} - ${zname}", isStateChange: "true")
-//  }   
-// sendEvent(name: "refresh", value: "true", displayed: "true", description: "Refresh Successful") 
+log.debug "Doing zone refresh"
+log.debug metaData.tczones[zonenumber].name
+if (metaData.tczones.contains("system.permission_denied")) {
+	log.debug "Zone ${metaData.tczones} is Fault"
+	sendEvent(name: "contact", value:"Failed", displayed: "true", description: "Refresh: Zone is Faulted", linkText: "Zone  ${zname} faulted", isStateChange: "true")
+} else if (metaData.tczones[zonenumber].status1.contains('device_status.dc_open')) {
+	log.debug "Zone ${metaData.tczones[zonenumber].status1} is OPEN"
+	sendEvent(name: "contact", value:"open", displayed: "true", description: "Refresh: Zone is Open", linkText: "Zone ${metaData.tczones[zonenumber].status1} - ${zname}", isStateChange: "true")
+} else if (metaData.tczones[zonenumber].status1.contains('')) {
+	log.debug "Zone ${metaData.tczones[zonenumber].status1} is OK"
+	sendEvent(name: "contact", value:"closed", displayed: "true", description: "Refresh: Zone is closed", linkText: "Zone ${metaData.tczones[zonenumber].status1} - ${zname}", isStateChange: "true")
+}   
+sendEvent(name: "refresh", value: "true", displayed: "true", description: "Refresh Successful") 
 }
 
 // parse events into attributes
