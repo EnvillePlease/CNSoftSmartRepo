@@ -14,6 +14,7 @@ definition (name: "Yale Front Door Sensor", namespace: "CNSoft OnLine", author: 
 capability "Contact Sensor"
 capability "Sensor"
 capability "Refresh"
+capability "Polling"
 
 attribute "status", "string"
 }
@@ -86,7 +87,7 @@ def login() {
 
 
 
- // Gets Panel Metadata. Takes token & location ID as an argument
+ // Gets Panel Metadata. Uses access token to retrieve alarm device statuses.
 Map panelMetaData() {
 
 def tczones
@@ -122,6 +123,7 @@ if (metaData.tczones.contains("system.permission_denied")) {
 	sendEvent(name: "contact", value:"closed", displayed: "true", description: "Refresh: Zone is closed", linkText: "Zone ${metaData.tczones[zonenumber].status1} - ${zname}", isStateChange: "true")
 }   
 sendEvent(name: "refresh", value: "true", displayed: "true", description: "Refresh Successful") 
+runIn(20,refresh)
 }
 
 // parse events into attributes
