@@ -14,7 +14,6 @@ definition (name: "Yale Front Door Sensor", namespace: "CNSoft OnLine", author: 
 capability "Contact Sensor"
 capability "Sensor"
 capability "Refresh"
-capability "Polling"
 
 attribute "status", "string"
 }
@@ -123,7 +122,6 @@ if (metaData.tczones.contains("system.permission_denied")) {
 	sendEvent(name: "contact", value:"closed", displayed: "true", description: "Refresh: Zone is closed", linkText: "Zone ${metaData.tczones[zonenumber].status1} - ${zname}", isStateChange: "true")
 }   
 sendEvent(name: "refresh", value: "true", displayed: "true", description: "Refresh Successful") 
-runIn(20,refresh)
 }
 
 // parse events into attributes
