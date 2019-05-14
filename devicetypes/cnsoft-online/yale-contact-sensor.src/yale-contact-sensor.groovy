@@ -6,7 +6,7 @@ preferences {
 	input("userName", "text", title: "Username", description: "Your username for Yale Home System")
 	input("password", "password", title: "Password", description: "Your Password for Yale Home System")
 	input("zonenumber", type: "number", title: "Row Number - Put 0 in here and open a window/door, refresh and see if the status changes", description: "Sensor ID")
-	input description: "Once you have filled in your details \nUse “Switch off” to Disarm in any mode \nUse “Lock” to Home Arm (Arm Stay) \nUse “Switch on” to Fully Arm (Arm away).", title: "Guide", displayDuringSetup: false, type: "paragraph", element: "paragraph"
+	input description: "Once you have filled in your details \nfill in the zonenumber for the \ndevice you want to check.", title: "Guide", displayDuringSetup: false, type: "paragraph", element: "paragraph"
 }
 
 metadata {
