@@ -1,6 +1,7 @@
 /**
- *Version 0.2 - Added guide to use on settings page
- *Version 0.1 - First version arms/home/disarm the alarm
+ *Version 0.3 14/05/2019 - Updated for the new Yale API, now supports regulary refresh.
+ *Version 0.2 - Added guide to use on settings page.
+ *Version 0.1 - First version arms/home/disarm the alarm.
  */
 preferences {
 	input("userName", "text", title: "Username", description: "Your username for Yale Home System")
